@@ -15,7 +15,7 @@ MacroLoom is a modular Lua 5.1 addon built around existing SuperMacro and SuperC
 - Integration with the SuperMacro editor's icon selection using the pfUI picker when those addons and APIs are available.
 - A class-gated Shaman module with shield, imbue, maintenance, Stormstrike, and associated display utilities. The Shaman implementation retains the `SoakedMacroBridge` API alias for existing Soaked macros.
 
-**Not included:** Other class rotation modules, automatic tank-assist selection, character macro exports, a spellbook-style UI, or copies of dependency addons. Shaman display providers currently reference Soaked-specific macro names/functions; they are not generic ready-made rotations for every Shaman.
+**Planned features:** Other class rotation modules, automatic tank-assist selection, character macro exports, a spellbook-style UI, and copies of dependency addons. Shaman display providers currently reference Soaked-specific macro names/functions; they are not generic ready-made rotations for every Shaman. ***Development in progress.***
 
 ## Requirements and integrations
 
