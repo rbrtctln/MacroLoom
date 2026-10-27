@@ -1,0 +1,18 @@
+# Generated or local runtime artifacts
+*.log
+*.tmp
+*.bak
+*.orig
+*.rej
+.DS_Store
+Thumbs.db
+__pycache__/
+# Do not commit game/account data or installed clients
+WTF/
+Cache/
+Logs/
+Screenshots/
+*.wtf
+# Build outputs
+/dist/
+/build/
