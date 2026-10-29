@@ -2,7 +2,7 @@
 
 **Portable macro services for Vanilla/Turtle/Octo-style World of Warcraft clients.**
 
-**Version:** 0.1.0 (initial public-release candidate)
+**Version:** 0.1.2
 
 MacroLoom is a modular Lua 5.1 addon built around existing SuperMacro and SuperCleveRoidMacros (SCR) workflows. It supplies shared macro utilities and class-specific modules without replacing the game's macro editor or SCR's execution system.
 
@@ -15,7 +15,7 @@ MacroLoom is a modular Lua 5.1 addon built around existing SuperMacro and SuperC
 - Integration with the SuperMacro editor's icon selection using the pfUI picker when those addons and APIs are available.
 - A class-gated Shaman module with shield, imbue, maintenance, Stormstrike, and associated display utilities. The Shaman implementation retains the `SoakedMacroBridge` API alias for existing Soaked macros.
 
-**Planned features:** Other class rotation modules, automatic tank-assist selection, character macro exports, a spellbook-style UI, and copies of dependency addons. Shaman display providers currently reference Soaked-specific macro names/functions; they are not generic ready-made rotations for every Shaman. ***Development in progress.***
+**Planned features:** Other class rotation modules, automatic tank-assist selection, a spellbook-style UI, and copies of dependency addons. Shaman display providers currently reference Soaked-specific macro names/functions; they are not generic ready-made rotations for every Shaman. ***Development in progress.***
 
 ## Requirements and integrations
 
@@ -38,6 +38,10 @@ MacroLoom does not include or license pfUI, SuperMacro, SCR, game client softwar
 
 MacroLoom by itself does **not** create, import, or install user macros. Players must supply their own macro definitions and appropriate class-specific scripts.
 
+## Shaman reference macros
+
+Sanitized [melee and Earth Shock examples](examples/shaman/README.md) document the current policy. They are not loaded by the TOC or automatically imported into your SavedVariables. Updating the addon alone does not replace personal Extended Lua.
+
 ## Display and class architecture
 
 - **Native SCR presentation:** standard `/cast` or `/use` macro syntax and SCR's own display selection.
@@ -53,8 +57,8 @@ The shared `MacroLoom` namespace is also exposed as `SoakedMacroBridge` for back
 - The project was migrated and tested in the author's client environment; **compatibility with every Turtle/Octo version and combination of addons is not established**.
 - `Core/Display.lua` hooks SCR's `TestForActiveAction` method. SCR updates may require an integration review.
 - pfUI integration depends on specific pfUI structures and may not work with every fork/version.
-- The spellbook-style user interface, cross-class modules, and automatic tank-assist behaviors are roadmap ideas, **not v0.1.0 features**.
-- This distributable does not contain the original migration's test suite or Git history. The previous developer reported 142 checks passing, but the tests cannot be re-run from this ZIP alone. In-game verification remains necessary.
+- The spellbook-style user interface, cross-class modules, and automatic tank-assist behaviors are roadmap ideas, **not v0.1.2 features**.
+- This distributable does not contain the original migration's test suite or Git history. The local development suite reports 286 Lua 5.1 mock/integration checks passing for this update, but the tests cannot be re-run from this ZIP alone. In-game verification remains necessary.
 
 ## License
 

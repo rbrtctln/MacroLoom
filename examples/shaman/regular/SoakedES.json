@@ -1,0 +1,6 @@
+{
+  "name": "SoakedES",
+  "icon": "Spell_Nature_EarthShock",
+  "body": "#showtooltip\n/run SoakedESExec()\n/stopmacro\n/cast [mod:alt/ctrl,known:\"Earth Shock\"] Earth Shock\n/cast [nomod:alt/ctrl,known:\"Earth Shock\"] Earth Shock(Rank 1)\n/cast Attack\n",
+  "scope": "character"
+}

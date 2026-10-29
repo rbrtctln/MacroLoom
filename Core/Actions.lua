@@ -77,27 +77,49 @@ function API.CastOffensive(unit, spell, maintenance, extra, interrupt)
   RunBody(body .. '/cast ' .. clause .. '\n/nofirstaction')
 end
 
-function API.PartyAttention(unit)
+-- Use live group tokens; no private tank list or remembered threat state.
+local function GroupUnits(visit)
+  if visit('player') or visit('pet') then return true end
   for i = 1, 4 do
-    if UnitExists('party' .. i) and UnitIsUnit(unit .. 'target', 'party' .. i) then return true end
+    if visit('party' .. i) or visit('partypet' .. i) then return true end
+  end
+  for i = 1, 40 do
+    if visit('raid' .. i) or visit('raidpet' .. i) then return true end
   end
   return false
+end
+function API.PartyAttention(unit)
+  return GroupUnits(function(member)
+    return UnitExists(member) and not UnitIsUnit(member, 'player')
+      and (UnitIsUnit(unit .. 'target', member) or UnitIsUnit(unit .. 'targetowner', member))
+  end)
 end
 
 function API.Engaged(unit)
   if not API.Hostile(unit) or not UnitAffectingCombat(unit) then return false end
   if UnitIsUnit(unit .. 'target', 'player') or API.PartyAttention(unit) then return true end
-  for i = 1, 4 do
-    if UnitExists('party' .. i) and UnitAffectingCombat('party' .. i)
-      and UnitIsUnit('party' .. i .. 'target', unit) then return true end
-  end
-  return false
+  if UnitIsUnit(unit .. 'targetowner', 'player') then return true end
+  return GroupUnits(function(member)
+    return UnitExists(member) and not UnitIsUnit(member, 'player') and UnitAffectingCombat(member)
+      and UnitIsUnit(member .. 'target', unit)
+  end)
+end
+
+function API.LostThreat(unit)
+  if not API.Engaged(unit) or (UnitIsPlayer and UnitIsPlayer(unit))
+    or UnitIsUnit(unit .. 'target', 'player') then return false end
+  -- Same SCR/pfUI tank recognition used by the archived notargeting:tank/player.
+  local C = CleveRoids
+  if C and C.IsTargetingAnyTank and C.IsTargetingAnyTank(unit) then return false end
+  return true
 end
 
 function API.Interrupting(unit)
   if not API.ExecutionReady() then return nil end
-  local _, guid = UnitExists(unit)
   local C = CleveRoids
+  -- Use SCR's current cast/channel detector; retain older SCR compatibility.
+  if type(C.CheckSpellCast) == 'function' then return C.CheckSpellCast(unit, '') end
+  local _, guid = UnitExists(unit)
   local key = guid and C.NormalizeGUID and C.NormalizeGUID(guid)
   local cast = key and C.castTracking and C.castTracking[key]
   return cast and cast.endTime and cast.endTime > GetTime()
@@ -119,6 +141,12 @@ function API.SelectHostile(spell, score, scan, extra, ignoreTiming)
     end
   end
   for i = 1, 3 do consider(units[i]) end
+  if scan then
+    -- Group targets remain discoverable even when UnitXP scanning is unavailable.
+    GroupUnits(function(member)
+      if UnitExists(member) then consider(member .. 'target') end
+    end)
+  end
   if scan and CleveRoids.hasUnitXP then
     local original = UnitExists('target') and CleveRoids.GetGUID('target')
     for i = 1, 8 do consider('mark' .. i) end

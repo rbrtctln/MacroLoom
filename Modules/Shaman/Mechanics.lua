@@ -39,7 +39,7 @@ function API.LightningStrikeSoon()
   local gcd = N and N.GetGCDRemainingMs and N.GetGCDRemainingMs() or 0
   local horizon = gcd > 0 and gcd / 1000 or 1.5
   if gcd <= 0 and N and N.GetSpellCooldownInfo then
-    local shock = C.GetSpell('Earth Shock(Rank 4)') or C.GetSpell('Earth Shock')
+    local shock = C.GetSpell('Earth Shock(Rank 5)') or C.GetSpell('Earth Shock')
     local info = shock and N.GetSpellCooldownInfo(shock.id)
     if info and info.gcdCategoryDurationMs and info.gcdCategoryDurationMs > 0 then
       horizon = info.gcdCategoryDurationMs / 1000
@@ -64,7 +64,7 @@ end
 
 function API.TankState()
   if not API.ExecutionReady() then return false end
-  return CleveRoids.TestAction('/cast', '[equipped:Shields,mhenchant:Rockbiter] Earth Shock') and true or false
+  return CleveRoids.TestAction('/cast', '[mhenchant:Rockbiter] Earth Shock') and true or false
 end
 
 function API.OffensiveBlocked(spell)

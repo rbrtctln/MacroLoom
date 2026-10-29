@@ -16,7 +16,7 @@ end)
 API.Register('SoakedES', function()
   local unit, spell
   if SoakedESChoice then unit, spell = SoakedESChoice(false) end
-  return SpellDisplay(spell or (IsAltKeyDown() and 'Earth Shock' or 'Earth Shock(Rank 4)'))
+  return SpellDisplay(spell or (IsAltKeyDown() and 'Earth Shock' or 'Earth Shock(Rank 5)'))
 end)
 API.Register('SoakedMelee', function()
   local spell = SoakedMeleeDisplaySpell and SoakedMeleeDisplaySpell() or 'Lightning Strike'
@@ -29,6 +29,6 @@ function API.RotationDisplay(name)
   if name == 'SoakedMelee' and SoakedMeleeDisplaySpell then return SoakedMeleeDisplaySpell() end
   if name == 'SoakedES' and SoakedESChoice then
     local unit, spell = SoakedESChoice(false)
-    return spell or (IsAltKeyDown() and 'Earth Shock' or 'Earth Shock(Rank 4)'), unit
+    return spell or (IsAltKeyDown() and 'Earth Shock' or 'Earth Shock(Rank 5)'), unit
   end
 end

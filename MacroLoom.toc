@@ -1,7 +1,7 @@
 ## Interface: 11200
 ## Title: MacroLoom
 ## Notes: Portable macro services, native display integration, and Shaman helpers
-## Version: 0.1.0
+## Version: 0.1.2
 ## OptionalDeps: pfUI, SuperMacro, Supermacro, SuperCleveRoidMacros, CleveRoidMacros
 
 Core\Bootstrap.lua

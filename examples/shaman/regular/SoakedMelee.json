@@ -1,0 +1,6 @@
+{
+  "name": "SoakedMelee",
+  "icon": "INV_MISC_QUESTIONMARK",
+  "body": "#showtooltip\n/startattack\n/run SoakedMeleeExec()\n/stopmacro\n/cast [mod:shift]Earthshaker Slam;[mod:alt]Stormstrike;[mod:ctrl]Lightning Strike\n/cast [mybuff:Lightning_Shield,nocd:Stormstrike]!Stormstrike\n/cast [nocd:Lightning_Strike]Lightning Strike\n/cast [mybuff:Lightning_Shield]!Stormstrike\n/cast Lightning Strike\n",
+  "scope": "character"
+}

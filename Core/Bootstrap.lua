@@ -2,7 +2,7 @@
 MacroLoom = MacroLoom or SoakedMacroBridge or {}
 SoakedMacroBridge = MacroLoom
 local API = MacroLoom
-API.version = '0.1.0'
+API.version = '0.1.2'
 local _, class = UnitClass('player')
 API.playerClass = class
 API.DisplayOptions = {}
